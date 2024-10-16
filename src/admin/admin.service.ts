@@ -8,26 +8,29 @@ import { Repository } from "typeorm";
 @Injectable()
 export class AdminService {
   constructor(
-    @InjectRepository(Admin) private readonly adminRepo: Repository<Admin>
+    @InjectRepository(Admin)
+    private readonly adminRepository: Repository<Admin>,
   ) {}
 
   create(createAdminDto: CreateAdminDto) {
-    return this.adminRepo.save(createAdminDto);
+    return this.adminRepository.save(createAdminDto);
   }
 
   findAll() {
-    return this.adminRepo.find();
+    return this.adminRepository.find();
   }
 
   findOne(id: number) {
-    return this.adminRepo.findOneBy({ id });
+    return this.adminRepository.findOne({ where: { id } }); 
   }
 
-  update(id: number, updateAdminDto: UpdateAdminDto) {
-    return this.adminRepo.update({ id }, updateAdminDto);
+  async update(id: number, updateAdminDto: UpdateAdminDto) {
+    await this.adminRepository.update({ id }, updateAdminDto); 
+    return this.findOne(id); 
   }
 
-  remove(id: number) {
-    return this.adminRepo.delete({ id });
+  async remove(id: number) {
+    await this.adminRepository.delete({ id }); 
+    return id;
   }
 }

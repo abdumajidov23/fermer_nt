@@ -1,33 +1,36 @@
-import { Injectable } from "@nestjs/common";
-import { CreateWorkerDto } from "./dto/create-worker.dto";
-import { UpdateWorkerDto } from "./dto/update-worker.dto";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Workers } from "./entities/worker.entity";
-import { Repository } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { CreateWorkerDto } from './dto/create-worker.dto';  
+import { UpdateWorkerDto } from './dto/update-worker.dto';  
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Workers } from './entities/worker.entity';  
 
 @Injectable()
-export class WorkersService {
+export class WorkerService {
   constructor(
-    @InjectRepository(Workers) private readonly workersRepo: Repository<Workers>
-  ) {}
+    @InjectRepository(Workers)
+    private readonly workerRepository: Repository<Workers>,  
+  ) { }
 
   create(createWorkerDto: CreateWorkerDto) {
-    return this.workersRepo.save(createWorkerDto);
+    return this.workerRepository.save(createWorkerDto);  
   }
 
   findAll() {
-    return this.workersRepo.find();
+    return this.workerRepository.find();  
   }
 
   findOne(id: number) {
-    return this.workersRepo.findOneBy({ id });
+    return this.workerRepository.findOne({ where: { id } });  
   }
 
-  update(id: number, updateWorkerDto: UpdateWorkerDto) {
-    return this.workersRepo.update({id}, updateWorkerDto);
+  async update(id: number, updateWorkerDto: UpdateWorkerDto) {
+    await this.workerRepository.update({ id }, updateWorkerDto);  
+    return this.findOne(id);  
   }
 
-  remove(id: number) {
-    return this.workersRepo.delete({id});
+  async remove(id: number) {
+    await this.workerRepository.delete({ id });  
+    return id;  
   }
 }

@@ -1,19 +1,25 @@
+import { Field, InputType } from "@nestjs/graphql";
 import { IsNotEmpty, IsPhoneNumber, IsString } from "class-validator";
 
+@InputType() // Bu joyni qo'shing
 export class CreateAdminDto {
+  @Field({ nullable: true })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  full_name: string;
 
+  @Field()
   @IsString()
   @IsNotEmpty()
   @IsPhoneNumber("UZ")
-  phone: string;
+  phone_number: string;
 
+  @Field()
   @IsString()
   @IsNotEmpty()
   login: string;
 
+  @Field()
   @IsString()
   @IsNotEmpty()
   password: string;

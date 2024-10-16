@@ -1,0 +1,66 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Admin {
+  full_name: String!
+  id: ID!
+  login: String!
+  password: String!
+  phone_number: String!
+}
+
+input CreateAdminDto {
+  full_name: String
+  login: String!
+  password: String!
+  phone_number: String!
+}
+
+input CreateWorkerDto {
+  email: String!
+  name: String!
+  password: String!
+  phone: String!
+}
+
+type Mutation {
+  createAdmin(createAdminDto: CreateAdminDto!): Admin!
+  createWorker(createWorker: CreateWorkerDto!): Workers!
+  removeAdmin(id: Float!): Float!
+  removeWorker(id: ID!): ID!
+  updateAdmin(id: Float!, updateAdminDto: UpdateAdminDto!): Admin!
+  updateWorker(id: ID!, updateWorkerDto: UpdateWorkerDto!): Workers!
+}
+
+type Query {
+  admins: [Admin!]!
+  findAllWorkers: [Workers!]!
+  findOne(id: Float!): Admin!
+  findOneWorker(id: ID!): Workers!
+}
+
+input UpdateAdminDto {
+  full_name: String
+  login: String
+  password: String
+  phone_number: String
+}
+
+input UpdateWorkerDto {
+  email: String
+  is_active: Boolean
+  name: String
+  password: String
+  phone: String
+}
+
+type Workers {
+  email: String!
+  hashed_refresh_token: String
+  id: ID!
+  is_active: Boolean!
+  name: String!
+  password: String!
+  phone: String!
+}
