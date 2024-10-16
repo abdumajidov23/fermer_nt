@@ -6,10 +6,10 @@ export class Workers {
   id: number;
 
   @Column()
-  full_name: string;
+  name: string;
 
   @Column()
-  phone_number: string;
+  phone: string;
 
   @Column({ unique: true })
   email: string;

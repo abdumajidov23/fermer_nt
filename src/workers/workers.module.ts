@@ -10,3 +10,4 @@ import { Workers } from './entities/worker.entity';
   providers: [WorkersService],
 })
 export class WorkersModule {}
+  
